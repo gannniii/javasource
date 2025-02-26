@@ -43,7 +43,7 @@ public class IfTest6 {
         } else{
             grade = 'C';
         }
-        System.out.printf("당신의 학점은 %c%c 입니다", grade, opt);
+        System.out.printf("당신의 학점은 %c%c 입니다", grade, opt);  
         
     }
 }
