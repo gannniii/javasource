@@ -5,12 +5,12 @@ public class Student {
 
     // 속성 : 학번(s1024125), 이름(홍길동), 학년(1), 반(1), 전화번호(010-1234-1234),
     // 이메일(hong2@gmail.com)
-    String stuId;
-    String name;
-    int grade;
-    int classNum;
-    String phone;
-    String email;
+    private String stuId;
+    private String name;
+    private int grade;
+    private int classNum;
+    private String phone;
+    private String email;
 
     // 생성자 : 개발자가 명시하지 않으면 컴파일러가 자동으로 default 생성자 만들어 줌
     // 클래스명(){}
@@ -21,12 +21,31 @@ public class Student {
     // 생성자 목적
     // 멤버 변수 초기화
     public Student(String stuId, String name, int grade, int classNum, String phone, String email) {
-        this.stuId = stuId;
-        this.name = name;
-        this.grade = grade;
-        this.classNum = classNum;
-        this.phone = phone;
-        this.email = email;
+
+    }
+
+    public String getStuId() {
+        return stuId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public int getClassNum() {
+        return classNum;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     // int grade, int classNum - 지역변수(전달인자)
