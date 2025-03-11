@@ -150,6 +150,7 @@ public class MyShop implements IShop {
                 break;
             case "q":
                 System.exit(0);
+                break;
             default:
                 break;
         }
