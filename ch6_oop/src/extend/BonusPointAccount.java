@@ -16,6 +16,7 @@ public class BonusPointAccount extends Account {
     // 보너스포인트 = 보너스포인트 + (예금액 * 1%)
     // 예금하다 메소드 수정
     @Override
+
     void deposit(long amount) {
         // 예금하다
         super.deposit(amount);

@@ -2,8 +2,6 @@ package shop;
 
 import java.util.Scanner;
 
-import extend.Tv;
-
 public class MyShop implements IShop {
 
     private String title;
