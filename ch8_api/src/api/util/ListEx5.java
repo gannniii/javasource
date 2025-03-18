@@ -18,12 +18,12 @@ public class ListEx5 {
         System.out.println("LinkedList : " + add2(linkedList));
         System.out.println();
         System.out.println("=== 중간에서 삭제하기 ===");
-        System.out.println("ArrayList : " + remove1(arrayList));
-        System.out.println("LinkedList : " + remove1(linkedList));
-        System.out.println();
-        System.out.println("=== 순차적으로 삭제하기 ===");
         System.out.println("ArrayList : " + remove2(arrayList));
         System.out.println("LinkedList : " + remove2(linkedList));
+        System.out.println();
+        System.out.println("=== 순차적으로 삭제하기 ===");
+        System.out.println("ArrayList : " + remove1(arrayList));
+        System.out.println("LinkedList : " + remove1(linkedList));
         System.out.println();
     }
 
