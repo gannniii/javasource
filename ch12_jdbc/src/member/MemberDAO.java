@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberDAO {
     private Connection con;
@@ -57,6 +59,122 @@ public class MemberDAO {
     // insert, delete, update : int 리턴
     // select : ~~DTO(where pk 지정) or List<~~DTO>
 
+    // select * from member where name like '%홍%';
+    public List<MemberDTO> getNameList(String name) {
+
+        List<MemberDTO> list = new ArrayList<>();
+
+        try {
+            con = getConnection();
+
+            String sql = "select * from member where name like ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, "%" + name + "%");
+            rs = pstmt.executeQuery();
+
+            // rs => dto 옮기기
+            while (rs.next()) {
+                MemberDTO memberDTO = new MemberDTO();
+
+                memberDTO.setNo(rs.getInt("no"));
+                memberDTO.setId(rs.getString("id"));
+                memberDTO.setName(rs.getString("name"));
+                memberDTO.setAddr(rs.getString("addr"));
+                memberDTO.setEmail(rs.getString("email"));
+                memberDTO.setAge(rs.getInt("age"));
+                list.add(memberDTO);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        return list;
+    }
+
+    public List<MemberDTO> getList() {
+
+        List<MemberDTO> list = new ArrayList<>();
+
+        try {
+            con = getConnection();
+
+            String sql = "select * from member";
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            // rs => dto 옮기기
+            while (rs.next()) {
+                MemberDTO memberDTO = new MemberDTO();
+
+                memberDTO.setNo(rs.getInt("no"));
+                memberDTO.setId(rs.getString("id"));
+                memberDTO.setName(rs.getString("name"));
+                memberDTO.setAddr(rs.getString("addr"));
+                memberDTO.setEmail(rs.getString("email"));
+                memberDTO.setAge(rs.getInt("age"));
+                list.add(memberDTO);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
+        }
+        return list;
+    }
+
+    public MemberDTO getRow(String id) {
+
+        MemberDTO memberDTO = null;
+
+        try {
+            con = getConnection();
+
+            String sql = "select * from member where id = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, id);
+
+            rs = pstmt.executeQuery();
+            // rs => dto 옮기기
+            if (rs.next()) {
+                memberDTO = new MemberDTO();
+
+                memberDTO.setNo(rs.getInt("no"));
+                memberDTO.setId(rs.getString("id"));
+                memberDTO.setName(rs.getString("name"));
+                memberDTO.setAddr(rs.getString("addr"));
+                memberDTO.setEmail(rs.getString("email"));
+                memberDTO.setAge(rs.getInt("age"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
+        }
+        return memberDTO;
+    }
+
+    // delete : 전달인자 - pk 사용함
+    public int delete(String id) {
+        int reasult = 0;
+        try {
+            con = getConnection();
+            String sql = "delete from member where id = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, id);
+            reasult = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+        return reasult;
+    }
+
     // insert, update : 전달인자 ~~DTO 설정
 
     public int update(MemberDTO memberDTO) {
@@ -101,8 +219,8 @@ public class MemberDAO {
         try {
             con = getConnection();
 
-            String sql = "insert into member(id, name, addr, email, age)";
-            sql += "values(?, ?, ?, ?, ?)";
+            String sql = "insert into member(no, id, name, addr, email, age) ";
+            sql += "values(member_seq.nextval, ?, ?, ?, ?, ?) ";
 
             pstmt = con.prepareStatement(sql);
             // ? 해결
